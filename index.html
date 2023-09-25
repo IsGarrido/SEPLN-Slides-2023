@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>reveal.js</title>
+
+	<link rel="stylesheet" href="dist/reset.css">
+	<link rel="stylesheet" href="dist/reveal.css">
+	<link rel="stylesheet" href="dist/theme/black.css">
+
+	<!-- Theme used for syntax highlighted code -->
+	<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	<style>
+		small {
+			font-size: 35% !important
+		}
+
+		h2 {
+			margin-bottom: 5px !important;
+		}
+
+		/* img {
+			max-width: 40% !important;
+		} */
+
+		.slide-s {
+			height: 750px;
+			overflow-y: auto !important;
+		}
+
+		.slide-s::-webkit-scrollbar {
+			display: none !important;
+			-ms-overflow-style: none !important;
+			scrollbar-width: none !important;
+
+		}
+
+		.column,
+		.col {
+
+
+			-ms-flex-preferred-size: 0;
+			flex-basis: 0;
+			-webkit-box-flex: 1;
+			-ms-flex-positive: 1;
+			flex-grow: 1;
+			max-width: 100%;
+			/* display: flex;
+
+			flex-wrap: wrap; */
+		}
+
+		.row {
+			/* flex-basis: 50%;
+			
+			box-sizing: border-box; */
+			display: flex;
+			-ms-flex-wrap: wrap;
+			flex-wrap: wrap;
+		}
+
+		li {
+			margin-left: 20px;
+		}
+
+		.pelota {
+			width: 25px;
+			height: 25px;
+			border-radius: 50px;
+			display: inline-block;
+		}
+
+		.pelota-label {
+			font-size: 30px;
+			display: inline-block;
+			margin-right: 30px;
+		}
+
+		.ib {
+			display: inline-block !important;
+		}
+
+		p {
+			margin: 0px !important
+		}
+
+		.f {
+			display: flex !important;
+		}
+
+		.f75 {
+			font-size: 75% !important;
+		}
+
+		.shadow {
+			filter: drop-shadow(0 0 2px gray);
+		}
+	</style>
+
+
+	</style>
+</head>
+
+<body>
+	<div class="reveal">
+
+		<div class="slides">
+			<section>
+				<h3 class="shadow">Editing biases in deep learning language models</h3>
+				<h6>Ismael Garrido Muñoz</h6>
+			</section>
+			<section>
+				<div class="row">
+					<div class="col">
+						<h3>Explainability</h3>
+						<h4>Explicabilidad</h4>
+					</div>
+					<div class="col">
+						<h3>Fairness</h3>
+						<h4>Equidad</h4>
+					</div>
+				</div>
+
+			</section>
+
+			<section>
+				<h5 style="font-size: 80%;">ChatGPT could be used for good, but like many other AI models, it's rife
+					with racist and
+					discriminatory bias - <a
+						href="https://www.insider.com/chatgpt-is-like-many-other-ai-models-rife-with-bias-2023-1">insider.com</a></a>
+				</h5>
+				<h5 style="font-size: 80%;">The Internet’s New Favorite AI Proposes Torturing Iranians and Surveilling
+					Mosques
+					- <a
+						href="https://theintercept.com/2022/12/08/openai-chatgpt-ai-bias-ethics/">theintercept.com</a></a>
+				</h5>
+				<img src="img/gpt.png">
+			</section>
+
+			<section>
+				<h2>LM Debugger</h2>
+				<small>Geva, Mor & Caciularu, Avi & Dar, Guy & Roit, Paul & Sadde, Shoval & Shlain, Micah & Tamir, Bar &
+					Goldberg, Yoav. (2022). LM-Debugger: An Interactive Tool for Inspection and Intervention in
+					Transformer-Based Language Models. </small>
+
+				<ul>
+					<li>Prediction Trace (Input -> TopK 10 -> Output)</li>
+					<li>Interventions on/off (coeff = 0)</li>
+					<li>https://lm-debugger-l.apps.allenai.org/</li>
+				</ul>
+			</section>
+
+
+			<section class="slide-s">
+				<h3>My wife is working as a ???</h3>
+				<img src="img/lmdebug1.JPG">
+			</section>
+
+			<section class="slide-s">
+				<h3>My wife is working as a ???</h3>
+				<img src="img/lmdebug2.JPG">
+			</section>
+
+			<section>
+				<h3>My wife is working as a ???</h3>
+				<div class="column">
+					<div class="row">
+						<ul>
+							LM Debugger
+							<li>
+								L21, Top 4
+							</li>
+							<li>
+								L27 to L35, Top 1
+							</li>
+
+						</ul>
+					</div>
+					<div class="row">
+						<ul>
+							Value search by keyword
+							<li>
+								L0 to L6
+							</li>
+							<li>
+								L17 to L21
+							</li>
+							<li>
+								L24
+							</li>
+							<li>
+								L30 to L34
+							</li>
+						</ul>
+					</div>
+				</div>
+
+			</section>
+
+
+			<section>
+				<h3>
+					Rome
+				</h3>
+				<small>Meng, K., Bau, D., Andonian, A., and Belinkov, Y., Locating and Editing Factual Associations in
+					GPT </small>
+
+				<ul>
+					<li>Rank-One Model Editing</li>
+					<li>Causal tracing</li>
+					<li>Causal Intervention</li>
+					<li>Trabaja sobre facts</li>
+					<li>Factual knowledge</li>
+					<ul>
+						<li>[X] was born in [Y].</li>
+						<li>[X] is originally from [Y].</li>
+						<li>[X] is native to [Y].</li>
+						<li>LAMA (LAnguage Model Analysis)</li>
+					</ul>
+				</ul>
+			</section>
+
+			<section class="slide-s">
+				<h3>
+					Rome - Causal tracing
+				</h3>
+
+				<div style="display: block;">
+					<div class="pelota" style="background-color: mediumpurple"></div>
+					<div class="pelota-label">HS</div>
+					<div class="pelota" style="background-color: red"></div>
+					<div class="pelota-label">ATT</div>
+					<div class="pelota" style="background-color: green"></div>
+					<div class="pelota-label">MLP</div>
+				</div>
+
+				<img src="img/rome.JPG">
+
+				<div class="row">
+					<p class="col ib">Where in the sentence?</p>
+					<p class="col ib">Where in the network?</p>
+				</div>
+			</section>
+
+			<section>
+				<h3>
+					Rome - Causal tracing
+				</h3>
+
+				<ul class="f75">
+					<li>
+						1. Run once with Clean input. Record Hidden Activations.
+					</li>
+					<li>
+						2. Corrupt input, output is changed.
+					</li>
+					<li>
+						3. Run again. For each HS, copy it hover from the clean input
+					</li>
+					<li>
+						4. If theo output is back. HS is important.
+					</li>
+				</ul>
+				<div style="display: block;">
+					<div class="pelota" style="background-color: mediumpurple"></div>
+					<div class="pelota-label">HS</div>
+					<div class="pelota" style="background-color: red"></div>
+					<div class="pelota-label">ATT</div>
+					<div class="pelota" style="background-color: green"></div>
+					<div class="pelota-label">MLP</div>
+					<img src="img/rome.JPG"></p>
+				</div>
+
+			</section>
+			<section class="slide-s">
+				<h3>
+					Rome (Base example)
+				</h3>
+				<img src="img/ex11.png">
+				<img src="img/ex12.png">
+				<img src="img/ex13.png">
+			</section>
+
+			<section class="slide-s">
+
+				<div class="row">
+					<div class="col">
+						<img src="img/f1.png">
+						<img src="img/f2.png">
+						<img src="img/f3.png">
+					</div>
+					<div class="col">
+						<img src="img/m1.png">
+						<img src="img/m2.png">
+						<img src="img/m3.png">
+					</div>
+				</div>
+				<h3>
+					Rome (example 1 f vs m)
+				</h3>
+				<div style="height: 200px; width: 100%"></div>
+
+			</section>
+
+			<section class="slide-s">
+				<div class="row">
+					<div class="col">
+						<img src="img/f1.png">
+						<img src="img/f2.png">
+						<img src="img/f3.png">
+					</div>
+					<div class="col">
+						<img src="img/fb1.png">
+						<img src="img/fb2.png">
+						<img src="img/fb3.png">
+					</div>
+					<div class="col">
+						<img src="img/fc1.png">
+						<img src="img/fc2.png">
+						<img src="img/fc3.png">
+					</div>
+				</div>
+				<h3>
+					Rome (example 1 f1 vs f2 vs f3)
+				</h3>
+				<div style="height: 200px; width: 100%"></div>
+			</section>
+
+
+			<section class="slide-s">
+
+				<div class="row">
+					<div class="col">
+						<img src="img/m1.png">
+						<img src="img/m2.png">
+						<img src="img/m3.png">
+					</div>
+					<div class="col">
+						<img src="img/mb1.png">
+						<img src="img/mb2.png">
+						<img src="img/mb3.png">
+					</div>
+					<div class="col">
+						<img src="img/mc1.png">
+						<img src="img/mc2.png">
+						<img src="img/mc3.png">
+					</div>
+				</div>
+				<h3>
+					Rome (example 1 m1 vs m2 vs m3)
+				</h3>
+				<div style="height: 200px; width: 100%"></div>
+
+			</section>
+			<section>
+				<ul>
+					<li>MEMIT/PMET</li>
+					<li>Vector DBs, clustering? Vector Space</li>
+				</ul>
+
+			</section>
+
+
+		</div>
+	</div>
+
+	<script src="dist/reveal.js"></script>
+	<script src="plugin/notes/notes.js"></script>
+	<script src="plugin/markdown/markdown.js"></script>
+	<script src="plugin/highlight/highlight.js"></script>
+	<script>
+		// More info about initialization & config:
+		// - https://revealjs.com/initialization/
+		// - https://revealjs.com/config/
+		Reveal.initialize({
+			hash: true,
+
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+		});
+	</script>
+</body>
+
+</html>
